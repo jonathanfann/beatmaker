@@ -2,26 +2,34 @@
   'use strict';
   var AudioContext = window.AudioContext || window.webkitAudioContext || false;
 
-  var BPM = 120;
+  var bpm_from_page = document.getElementById('set_bpm').value ? document.getElementById('set_bpm').value : 120;
+
+  document.querySelector("#bpm_form").addEventListener("submit", function(e){
+      e.preventDefault();
+      if (document.getElementById('set_bpm').value) {
+          BPM = document.getElementById('set_bpm').value;
+          console.log(BPM);
+      } else {
+          console.log('wat');
+      }
+});
+
+  var BPM;
+  if (bpm_from_page) {
+      BPM = bpm_from_page;
+  } else {
+      BPM = 120;
+  }
   var TICKS = 16;
-  var soundPrefix = 'https://blog.omgmog.net/beatmaker/sounds/';
+  var soundPrefix = 'sounds/';
   var sounds = [
-    'bass_drum.wav',
-    'snare_drum.wav',
-    'low_tom.wav',
-    'mid_tom.wav',
-    'hi_tom.wav',
-    'rim_shot.wav',
-    'hand_clap.wav',
-    'cowbell.wav',
-    'cymbal.wav',
-    'o_hi_hat.wav',
-    'cl_hi_hat.wav',
-    'low_conga.wav',
-    'mid_conga.wav',
-    'hi_conga.wav',
-    'claves.wav',
-    'maracas.wav'
+    'kick.wav',
+    'snare.wav',
+    'bongo_low.wav',
+    'bongo_high.wav',
+    'Cowbell.wav',
+    'Cymbal.wav',
+    'HiHat.wav'
   ];
   var buffers = {};
   if (AudioContext) {
